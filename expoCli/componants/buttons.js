@@ -1,25 +1,13 @@
-import { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Pressable } from 'react-native';
 
 
 export default function ProjectButton({ id }){
 
-const [show, setShow] = useState(false)
-
-   function pressProjBtn(numb){
-
-        setShow((curr) => {!curr})
-        alert(numb)
-
-    }
-
 const projects = [{id: 0, title: "My Munro App"}, {id: 1, title: "In Sheffield"}]
 
 
 return (
-    <View>
-    <Pressable style={styles.projBtn} onPress={()=>{pressProjBtn(id)}}><Text style={styles.projBtnText}>{projects[id].title}</Text></Pressable>
-    </View>
+    <View style={styles.projBtn} ><Text style={styles.projBtnText}>{projects[id].title}</Text></View>
 )
 
 }
@@ -27,7 +15,7 @@ return (
 const styles = StyleSheet.create({
     projBtnText: {
         textAlign: 'center',
-        color: '#F53F65',
+        color: '#93A1D4',
         fontSize: 30
     },
     projBtn: {
