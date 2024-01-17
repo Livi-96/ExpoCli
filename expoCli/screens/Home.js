@@ -8,11 +8,12 @@ import {
   TextInput,
   Button,
   FlatList,
+  ActivityIndicator
 } from "react-native";
 import background from "../assets/background.jpg";
 import ProjectButton from "../componants/buttons";
-import { useState } from "react";
-import * as React from "react";
+import { useState, useEffect } from "react";
+
 
 export default function Home({ navigation }) {
   const pressHandler = () => {
@@ -21,6 +22,33 @@ export default function Home({ navigation }) {
 
   const projList = [{id: 0, title: "My Munro App", details: 'I love munros, they auyg uregfh uye gugr uhgv efvh  iuh uhi vuhe v iuhrihu euhfhv ihuev hiveiuhefu h vihueuv ihuveuhi vhviu ', language: 'React'}, {id: 1, title: "In Sheffield", details: 'I love Sheff!!', language: 'React'}]
 
+//   Api logic
+    const [data, setData] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState(null)
+
+useEffect(()=>{
+    fetch('https://jsonplaceholder.typicode.com/todos/1').then(res => res.json()).then((result)=>{
+       setIsLoading(false);
+        setData(result);
+    }, 
+    (error) => {
+       setIsLoading(false);
+        setError(error);
+    })
+}, [])
+
+const getContent = ()=>{
+   if (isLoading){
+        return <ActivityIndicator size="large" />
+    } 
+if(!isLoading){
+    console.log(data)
+        return <Text>{data.userId}</Text>
+}
+    
+}
+//   Api logic
   return (
     <ImageBackground
       source={background}
@@ -28,6 +56,7 @@ export default function Home({ navigation }) {
       style={styles.image}
     >
       <View style={styles.container}>
+        {getContent()}
         <Text style={styles.title}>Keeping Track</Text>
         <StatusBar style="auto" />
         <View style={styles.projectBtnContainer}>
